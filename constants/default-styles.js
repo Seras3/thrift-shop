@@ -6,6 +6,10 @@ export const defaultStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  fillSize: {
+    width: '100%',
+    height: '100%'
   }
 });
 
