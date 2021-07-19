@@ -2,17 +2,19 @@ import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { defaultStyles } from '../constants/default-styles';
 
-import { PRODUCTS } from '../data/dummy-data';
+import { useSelector } from 'react-redux';
 
 import ProductCard from '../components/ProductCard';
 
 const ShopScreen = (props) => {
+  const products = useSelector(state => state.shop.products);
+
 
   return (
     <View style={defaultStyles.container}>
       <FlatList
         style={styles.list}
-        data={PRODUCTS}
+        data={products}
         renderItem={(itemData) => <ProductCard navigation={props.navigation} product={itemData.item} />}
       />
     </View>

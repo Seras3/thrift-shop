@@ -12,7 +12,11 @@ const DrawerNavigator = () => {
     <Drawer.Navigator>
       <Drawer.Screen name="Shop" component={ShopNavigator} />
       <Drawer.Screen name="Orders" component={OrdersNavigator} />
-      <Drawer.Screen name="ManageProducts" component={ManageProductsNavigator} />
+      <Drawer.Screen name="ManageProducts" component={ManageProductsNavigator}
+        options={{
+          title: 'Manage Products'
+        }}
+      />
     </Drawer.Navigator>
   );
 };

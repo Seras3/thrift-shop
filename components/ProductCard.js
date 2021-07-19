@@ -3,11 +3,20 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 
+import { useDispatch } from 'react-redux';
+import { addProductToCart } from '../store/actions/shop';
+
 import TextPrice from './TextPrice';
 import BuyButton from './BuyButton';
 
 const ProductCard = ({ navigation, product }) => {
   const { colors } = useTheme();
+
+  const dispatch = useDispatch();
+
+  const handleAddProductToCart = (id) => {
+    dispatch(addProductToCart(id));
+  }
 
   return (
     <View style={styles.card}>
@@ -36,7 +45,7 @@ const ProductCard = ({ navigation, product }) => {
           }}
         />
         <BuyButton onPress={() => {
-          navigation.navigate('Cart');
+          handleAddProductToCart(product.id);
         }} />
       </View>
     </View>

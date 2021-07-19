@@ -17,13 +17,14 @@ const ShopNavigator = () => {
     <Stack.Navigator screenOptions={headerScreenOptions}>
       <Stack.Screen name="Shop" component={ShopScreen}
         options={({ navigation }) => ({
-          headerLeft: () => <DrawerHeaderButton onPress={navigation.toggleDrawer} />
+          headerLeft: () => <DrawerHeaderButton onPress={navigation.toggleDrawer} />,
+          headerRight: () => <CartHeaderButton onPress={() => { navigation.navigate('Cart') }} />
         })}
       />
       <Stack.Screen name="Details" component={DetailsScreen}
-        options={({ route }) => ({
+        options={({ navigation, route }) => ({
           title: route.params?.productTitle,
-          headerRight: () => <CartHeaderButton onPress={() => { console.log("CART") }} />
+          headerRight: () => <CartHeaderButton onPress={() => { navigation.navigate('Cart') }} />
         })} />
       <Stack.Screen name="Cart" component={CartScreen} />
     </Stack.Navigator>

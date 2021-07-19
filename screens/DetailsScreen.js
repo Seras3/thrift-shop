@@ -2,14 +2,27 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/stack';
 
-import { PRODUCTS } from '../data/dummy-data';
+import { useSelector, useDispatch } from 'react-redux';
+
 import TextPrice from '../components/TextPrice';
 import BuyButton from '../components/BuyButton';
+import { addProductToCart } from '../store/actions/shop';
 
 const DetailsScreen = ({ navigation, route }) => {
-  const fetchProduct = (id) => PRODUCTS.find(item => item.id === id);
-  const product = fetchProduct(route.params.productId);
   const headerHeight = useHeaderHeight();
+
+  const products = useSelector(state => state.shop.products);
+  const dispatch = useDispatch();
+
+  const getProduct = (id) => products.find(item => item.id === id);
+
+
+  const handleAddProductToCart = (id) => {
+    dispatch(addProductToCart(id));
+  }
+
+  const product = getProduct(route.params.productId);
+
 
   return (
     <View style={{ flex: 1, minHeight: (Dimensions.get('window').height - headerHeight) }}>
@@ -22,7 +35,7 @@ const DetailsScreen = ({ navigation, route }) => {
         <BuyButton containerStyle={{ width: '90%', marginBottom: 30 }}
           title="Add to cart"
           onPress={() => {
-            navigation.navigate('Cart');
+            handleAddProductToCart(product.id);
           }}
         />
       </View>
