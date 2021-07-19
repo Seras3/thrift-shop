@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
   list: {
     width: '90%',
     flex: 1,
-    marginTop: 30
+    marginTop: 10
   },
 });
