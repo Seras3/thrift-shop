@@ -1,6 +1,7 @@
 import uuid from 'react-native-uuid';
 import { PRODUCTS } from '../../data/dummy-data';
 import CartItem from '../../models/cart-item';
+import Order from '../../models/order';
 
 import {
   ADD_PRODUCT_TO_SHOP,
@@ -15,7 +16,7 @@ const initState = {
   products: PRODUCTS,
   cart: [],
   orders: [],
-  identity: ('u' + uuid.v4())
+  identity: ('u1') // TODO: ('u' + uuid.v4()) -- for random identity
 };
 
 const shopReducer = (state = initState, action) => {
@@ -23,6 +24,7 @@ const shopReducer = (state = initState, action) => {
   let filteredProducts = [];
   let updatedProducts = [];
   let updatedCart = [];
+  let updatedOrders = [];
   let index = -1;
 
   switch (action.type) {
@@ -32,17 +34,17 @@ const shopReducer = (state = initState, action) => {
         owner: state.identity,
         ...action.product
       };
-      updatedProducts = [...state.products, product];
+      updatedProducts = [product, ...state.products];
       return { ...state, products: updatedProducts };
 
     case EDIT_PRODUCT_FROM_SHOP:
       filteredProducts = state.products.filter(product => product.id !== action.product.id);
-      updatedProducts = [...filteredProducts, action.product];
+      updatedProducts = [action.product, ...filteredProducts];
       return { ...state, products: updatedProducts };
 
     case DELETE_PRODUCT_FROM_SHOP:
       updatedProducts = state.products.filter(product => product.id !== action.productId);
-      return { ...state, product: updatedProducts };
+      return { ...state, products: updatedProducts };
 
 
 
@@ -74,9 +76,8 @@ const shopReducer = (state = initState, action) => {
 
 
     case PLACE_ORDER:
-      // TODO: define Order model
-      // TODO: push new Order() 
-      return state;
+      updatedOrders = [...state.orders, new Order(state.cart)];
+      return { ...state, cart: [], orders: updatedOrders };
 
 
     default:

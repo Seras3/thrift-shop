@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/stack';
-
+import { useTheme } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button, Icon } from 'react-native-elements';
 
 import TextPrice from '../components/TextPrice';
-import BuyButton from '../components/BuyButton';
+
 import { addProductToCart } from '../store/actions/shop';
 
 const DetailsScreen = ({ navigation, route }) => {
   const headerHeight = useHeaderHeight();
+  const { colors } = useTheme();
 
   const products = useSelector(state => state.shop.products);
   const dispatch = useDispatch();
@@ -32,7 +34,17 @@ const DetailsScreen = ({ navigation, route }) => {
       <View style={styles.content}>
         <TextPrice style={styles.price}>{product.price}</TextPrice>
         <Text style={styles.description}>{product.description}</Text>
-        <BuyButton containerStyle={{ width: '90%', marginBottom: 30 }}
+        <Button
+          containerStyle={{ width: '90%', marginBottom: 30 }}
+          buttonStyle={{ flex: 1, backgroundColor: colors.primary }}
+          icon={
+            <Icon
+              name="add-circle"
+              size={30}
+              color='white'
+              style={{ paddingRight: 10 }}
+            />
+          }
           title="Add to cart"
           onPress={() => {
             handleAddProductToCart(product.id);

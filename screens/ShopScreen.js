@@ -9,7 +9,6 @@ import ProductCard from '../components/ProductCard';
 const ShopScreen = (props) => {
   const products = useSelector(state => state.shop.products);
 
-
   return (
     <View style={defaultStyles.container}>
       <FlatList

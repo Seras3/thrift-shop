@@ -1,9 +1,9 @@
 export const ADD_PRODUCT_TO_SHOP = 'ADD_PRODUCT_TO_SHOP';
-export const EDIT_PRODUCT_FROM_SHOP = 'ADD_PRODUCT_FROM_SHOP';
-export const DELETE_PRODUCT_FROM_SHOP = 'ADD_PRODUCT_FROM_SHOP';
+export const EDIT_PRODUCT_FROM_SHOP = 'EDIT_PRODUCT_FROM_SHOP';
+export const DELETE_PRODUCT_FROM_SHOP = 'DELETE_PRODUCT_FROM_SHOP';
 
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
-export const DELETE_PRODUCT_FROM_CART = 'ADD_PRODUCT_FROM_CART';
+export const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART';
 
 export const PLACE_ORDER = 'PLACE_ORDER';
 
@@ -24,7 +24,7 @@ export const editProductFromShop = ({ id, owner, title, imageUrl, description, p
 
 export const deleteProductFromShop = (id) => {
   return {
-    type: EDIT_PRODUCT_FROM_SHOP,
+    type: DELETE_PRODUCT_FROM_SHOP,
     productId: id
   };
 };
@@ -47,9 +47,8 @@ export const deleteProductFromCart = (id) => {
 
 
 
-export const placeOrder = (newOrder) => {
+export const placeOrder = () => {
   return {
     type: PLACE_ORDER,
-    order: newOrder
   }
 };

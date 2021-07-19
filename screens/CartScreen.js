@@ -8,7 +8,7 @@ import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteProductFromCart } from '../store/actions/shop';
+import { deleteProductFromCart, placeOrder } from '../store/actions/shop';
 import DeleteItemButton from '../components/DeleteItemButton';
 import { truncateNDecimals } from '../utils/floats';
 
@@ -29,6 +29,9 @@ const CartScreen = (props) => {
     dispatch(deleteProductFromCart(id));
   };
 
+  const handlePlaceOrder = () => {
+    dispatch(placeOrder());
+  };
 
   let content;
   if (cart.length > 0) {
@@ -55,7 +58,7 @@ const CartScreen = (props) => {
                   />
                 }
                 title="Place Order"
-                onPress={() => { console.log("PLACE ORDER") }}
+                onPress={() => { handlePlaceOrder() }}
               />
               <FlatList
                 keyExtractor={(item) => item.product.id}
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '100%',
     marginVertical: 20,
-    backgroundColor: '#f2e5c9', // TODO: to delete, for test only
+    backgroundColor: '#f2e5c9',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,

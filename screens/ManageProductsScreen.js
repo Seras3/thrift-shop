@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, FlatList, Text, View } from 'react-native';
 
 import { defaultStyles } from '../constants/default-styles';
 
 import { useSelector } from 'react-redux';
+import ProductCard from '../components/ProductCard';
 
 const ManageProductsScreen = (props) => {
   const products = useSelector(state => state.shop.products);
@@ -15,7 +16,11 @@ const ManageProductsScreen = (props) => {
   if (myProducts.length > 0) {
     content = (
       <View style={defaultStyles.container}>
-        <Text>{JSON.stringify(myProducts, null, 4)}</Text>
+        <FlatList
+          style={styles.list}
+          data={myProducts}
+          renderItem={(itemData) => <ProductCard navigation={props.navigation} product={itemData.item} isManaging />}
+        />
       </View>
     );
   } else {
@@ -32,4 +37,10 @@ const ManageProductsScreen = (props) => {
 
 export default ManageProductsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  list: {
+    width: '90%',
+    flex: 1,
+    marginTop: 30
+  },
+});

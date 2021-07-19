@@ -7,6 +7,7 @@ import EditProductScreen from '../screens/EditProductScreen';
 
 import DrawerHeaderButton from '../components/DrawerHeaderButton';
 import AddHeaderButton from '../components/AddHeaderButton';
+import SubmitHeaderButton from '../components/SubmitHeaderButton';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,18 @@ const ManageProductsNavigator = () => {
           headerRight: () => <AddHeaderButton onPress={() => navigation.navigate('EditProduct')} />
         })}
       />
-      <Stack.Screen name="EditProduct" component={EditProductScreen} />
+      <Stack.Screen name="EditProduct" component={EditProductScreen}
+        options={({ route, navigation }) => {
+          const handleSubmit = route.params?.handleSubmit;
+
+          const headerRight = () => <SubmitHeaderButton onPress={() => {
+            handleSubmit();
+            navigation.navigate('ManageProducts');
+          }} />
+          return route.params?.productId !== undefined
+            ? { title: 'Edit Product', headerRight }
+            : { title: 'Add Product', headerRight };
+        }} />
     </Stack.Navigator>
   );
 };

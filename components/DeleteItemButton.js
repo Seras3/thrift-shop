@@ -4,8 +4,10 @@ import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useTheme } from '@react-navigation/native';
 
 const DeleteItemButton = ({ style, containerStyle, buttonStyle, iconSize = 25, title = "", onPress }) => {
+  const { colors } = useTheme();
 
   return (
     <Button
@@ -16,7 +18,7 @@ const DeleteItemButton = ({ style, containerStyle, buttonStyle, iconSize = 25, t
         <Ionicons
           name="trash-outline"
           size={iconSize}
-          color="#f06156"
+          color={colors.delete}
         />
       }
       title={title}
