@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { headerScreenOptions } from '../constants/default-styles';
 
@@ -22,13 +23,10 @@ const ManageProductsNavigator = () => {
         })}
       />
       <Stack.Screen name="EditProduct" component={EditProductScreen}
-        options={({ route, navigation }) => {
+        options={({ route }) => {
           const handleSubmit = route.params?.handleSubmit;
 
-          const headerRight = () => <SubmitHeaderButton onPress={() => {
-            handleSubmit();
-            navigation.navigate('ManageProducts');
-          }} />
+          const headerRight = () => <SubmitHeaderButton onPress={handleSubmit} />
           return route.params?.productId !== undefined
             ? { title: 'Edit Product', headerRight }
             : { title: 'Add Product', headerRight };

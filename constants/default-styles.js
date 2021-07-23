@@ -10,6 +10,10 @@ export const defaultStyles = StyleSheet.create({
   fillSize: {
     width: '100%',
     height: '100%'
+  },
+  disableInputStyle: {
+    color: 'grey',
+    borderColor: 'grey'
   }
 });
 
