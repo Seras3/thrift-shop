@@ -32,12 +32,12 @@ export default DeleteItemButton;
 
 const styles = StyleSheet.create({
   container: {
-    width: 30,
+    width: 40,
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginLeft: 30
+    marginLeft: 15
   },
   button: {
     flex: 1,

@@ -7,9 +7,11 @@ import DeleteItemButton from '../components/DeleteItemButton';
 const CustomCard = ({ children, items, handleDeleteProduct }) => {
   const { colors } = useTheme();
 
-  let deleteButton;
+  let deleteButtonFactory;
   if (handleDeleteProduct) {
-    deleteButton = <DeleteItemButton onPress={() => handleDeleteProduct(itemData.item.product.id)} />;
+    deleteButtonFactory = (productId) => {
+      return <DeleteItemButton onPress={() => handleDeleteProduct(productId)} />;
+    };
   }
 
 
@@ -26,7 +28,7 @@ const CustomCard = ({ children, items, handleDeleteProduct }) => {
             <Text style={styles.textCnt}>{itemData.item.cnt} x</Text>
             <Text style={styles.textTitle}>{itemData.item.product.title}</Text>
             <Text style={styles.textPrice}>{itemData.item.product.price}$</Text>
-            {deleteButton}
+            {deleteButtonFactory(itemData.item.product.id)}
           </View>
         )}
       />
@@ -72,6 +74,6 @@ const styles = StyleSheet.create({
   textPrice: {
     fontSize: 15,
     flex: 1,
-    textAlign: 'right'
+    textAlign: 'right',
   }
 });
