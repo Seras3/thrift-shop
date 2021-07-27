@@ -1,12 +1,13 @@
-import uuid from 'react-native-uuid';
 import { PRODUCTS } from '../../data/dummy-data';
 import CartItem from '../../models/cart-item';
 import Order from '../../models/order';
+import { IDENTITY } from '../../constants/network';
 
 import {
   ADD_PRODUCT_TO_SHOP,
   EDIT_PRODUCT_FROM_SHOP,
   DELETE_PRODUCT_FROM_SHOP,
+  SET_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   DELETE_PRODUCT_FROM_CART,
   PLACE_ORDER
@@ -16,7 +17,7 @@ const initState = {
   products: PRODUCTS,
   cart: [],
   orders: [],
-  identity: ('u1') // TODO: ('u' + uuid.v4()) -- for random identity
+  identity: (IDENTITY)
 };
 
 const shopReducer = (state = initState, action) => {
@@ -28,18 +29,25 @@ const shopReducer = (state = initState, action) => {
   let index = -1;
 
   switch (action.type) {
+    case SET_PRODUCTS:
+      return {
+        ...state,
+        products: action.products
+      };
     case ADD_PRODUCT_TO_SHOP:
       product = {
-        id: uuid.v4(),
-        owner: state.identity,
-        ...action.product
+        ...action.product,
+        owner: state.identity
       };
       updatedProducts = [product, ...state.products];
       return { ...state, products: updatedProducts };
 
     case EDIT_PRODUCT_FROM_SHOP:
-      filteredProducts = state.products.filter(product => product.id !== action.product.id);
-      updatedProducts = [action.product, ...filteredProducts];
+      index = state.products.findIndex(product => product.id === action.product.id)
+      const newProduct = { ...state.products[index], ...action.product }
+      filteredProducts = [...state.products];
+      filteredProducts.splice(index, 1);
+      updatedProducts = [newProduct, ...filteredProducts];
       return { ...state, products: updatedProducts };
 
     case DELETE_PRODUCT_FROM_SHOP:

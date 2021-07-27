@@ -4,9 +4,11 @@ import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addProductToShop, editProductFromShop } from '../store/actions/shop';
 import { defaultStyles } from '../constants/default-styles';
+import _ from 'lodash';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
 
 const ProductForm = ({ product, navigation }) => {
   const { colors } = useTheme();
@@ -41,22 +43,23 @@ const ProductForm = ({ product, navigation }) => {
         const { title, price, description, imageUrl } = props.values;
 
         const handleSubmit = useCallback(async () => {
-          const errors = await props.validateForm();
+          try {
+            const errors = await props.validateForm();
 
-          const isValidForm = _.isEmpty(errors);
+            const isValidForm = _.isEmpty(errors);
 
-          if (isValidForm) {
+            if (isValidForm) {
 
-            if (isEdit) {
-              dispatch(editProductFromShop({ ...product, title, price, description, imageUrl }));
-            } else {
-              dispatch(addProductToShop({ title, price, description, imageUrl }));
+              if (isEdit) {
+                dispatch(editProductFromShop({ ...product, title, price, description, imageUrl }));
+              } else {
+                dispatch(addProductToShop({ title, price, description, imageUrl }));
+              }
+              navigation.navigate('ManageProducts');
             }
-            navigation.navigate('ManageProducts');
-
-          } else {
+          } catch (err) {
             console.log("INVALID INPUT")
-            Alert.alert("INVALID INPUT", "INVALID INPUT");
+            Alert.alert("Invalid input", "Review the input please :D");
           }
         }, [title, price, description, imageUrl]);
 

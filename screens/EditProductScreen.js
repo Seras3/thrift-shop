@@ -20,5 +20,3 @@ const EditProductScreen = ({ navigation, route }) => {
 };
 
 export default EditProductScreen;
-
-const styles = StyleSheet.create({});

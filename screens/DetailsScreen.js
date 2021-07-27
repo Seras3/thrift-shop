@@ -9,7 +9,7 @@ import TextPrice from '../components/TextPrice';
 
 import { addProductToCart } from '../store/actions/shop';
 
-const DetailsScreen = ({ navigation, route }) => {
+const DetailsScreen = ({ route }) => {
   const headerHeight = useHeaderHeight();
   const { colors } = useTheme();
 
@@ -35,13 +35,13 @@ const DetailsScreen = ({ navigation, route }) => {
         <TextPrice style={styles.price}>{product.price}</TextPrice>
         <Text style={styles.description}>{product.description}</Text>
         <Button
-          containerStyle={{ width: '90%', marginBottom: 30 }}
-          buttonStyle={{ flex: 1, backgroundColor: colors.primary }}
+          containerStyle={styles.containerButton}
+          buttonStyle={StyleSheet.compose(styles.contentButton, { backgroundColor: colors.primary })}
           icon={
             <Icon
               name="add-circle"
               size={30}
-              color='white'
+              color="white"
               style={{ paddingRight: 10 }}
             />
           }
@@ -88,5 +88,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
     color: 'rgba(0, 0, 0, 0.6)'
+  },
+  containerButton: {
+    width: '90%',
+    marginBottom: 30,
+    height: 50
+  },
+  contentButton: {
+    flex: 1,
   }
 });
